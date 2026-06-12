@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --text-color: rgb(104,109,110);
+    --head-color: rgb(0,0,0);
+    --bg-gray: rgb(225, 226, 227);
+    --btn-green: rgb(140, 179, 43);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    hyphens: auto;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;    
+    font-weight: 300;
+    text-align: left;
+    color: var(--text-color);
+}
+
+h1, h2, h3 {
+    font-family: "PT Serif", serif;
+    color: var(--head-color);
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.navbar {
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-size: 18pt !important;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.navbar-brand {
+    width: 200px;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.block {
+    text-align: justify;
+}
+
+.p-15 {
+    padding: 15px;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.img-icon {
+    width: 25px;
+}
+
+.winzer-section {
+    background-color: var(--bg-gray);
+    margin: 20px 0;
+}
+
+.wein-sections {
+    margin-top: 2rem;
+}
+
+.wein-sections:first-child {
+    margin-top: 1rem;
+}
+
+.btn-shop {
+    background-color: var(--btn-green);
+}
+
+.shop {
+    background-color: var(--bg-gray);
+    border-radius: 5px;
+}
