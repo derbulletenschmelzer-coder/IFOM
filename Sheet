@@ -1,248 +1,393 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bootstrap 5 – Spickzettel IFOM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheatsheet – BG Energie Bausteine</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { font-family: monospace; background: #f8f9fa; color: #212529; padding: 20px; }
-    h1 { font-family: sans-serif; color: #0d6efd; border-bottom: 3px solid #0d6efd; padding-bottom: 8px; }
-    h2 { font-family: sans-serif; color: #198754; margin-top: 40px; border-left: 5px solid #198754; padding-left: 10px; }
-    h3 { font-family: sans-serif; color: #6c757d; margin-top: 25px; }
-    pre { background: #212529; color: #f8f9fa; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
-    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 14px; margin: 10px 0; border-radius: 4px; font-family: sans-serif; font-size: 14px; }
-    .tip  { background: #d1e7dd; border-left: 4px solid #198754; padding: 10px 14px; margin: 10px 0; border-radius: 4px; font-family: sans-serif; font-size: 14px; }
+    body { font-family: monospace; background: #1e1e1e; color: #ccc; margin: 0; padding: 0; }
+    h1 { font-family: sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin: 0; }
+    .page-header { background: #111; padding: 28px 40px; border-bottom: 3px solid #5aaa5e; display: flex; align-items: center; gap: 14px; }
+    .badge-green { background: #5aaa5e; color: #fff; font-size: 11px; font-family: sans-serif; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+    .toc { background: #161616; border-right: 1px solid #333; padding: 28px 20px; min-width: 220px; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
+    .toc h3 { font-family: sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #777; margin: 0 0 14px; }
+    .toc a { display: block; font-family: sans-serif; font-size: 13px; color: #999; text-decoration: none; padding: 5px 8px; border-radius: 4px; margin-bottom: 2px; }
+    .toc a:hover, .toc a.active { background: #5aaa5e22; color: #5aaa5e; }
+    .main { flex: 1; padding: 40px; overflow-y: auto; }
+    .layout { display: flex; min-height: 100vh; }
+
+    .block { margin-bottom: 48px; }
+    .block-title {
+      font-family: sans-serif; font-size: 13px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #5aaa5e; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .block-title::after { content: ''; flex: 1; height: 1px; background: #333; }
+    .tag { background: #2a2a2a; border: 1px solid #444; font-size: 11px; color: #aaa; padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+
+    .preview { background: #fff; border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
+    pre {
+      background: #111; border: 1px solid #333; border-radius: 6px;
+      padding: 16px 18px; margin: 0; overflow-x: auto;
+      font-size: 12.5px; line-height: 1.6; color: #ccc;
+    }
+    .copy-btn {
+      background: #2a2a2a; border: 1px solid #444; color: #aaa;
+      font-size: 11px; font-family: sans-serif; font-weight: 700;
+      padding: 5px 14px; border-radius: 4px; cursor: pointer;
+      letter-spacing: 0.05em; margin-bottom: 8px; display: inline-block;
+    }
+    .copy-btn:hover { background: #5aaa5e; border-color: #5aaa5e; color: #fff; }
+    .copy-btn.copied { background: #3a7d3e; border-color: #3a7d3e; color: #fff; }
+
+    .note { font-family: sans-serif; font-size: 12px; color: #777; margin-bottom: 8px; font-style: italic; }
+
+    /* ── PREVIEWS ── */
+
+    /* NAV preview */
+    .prev-nav { background: #fff; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; height: 70px; }
+    .prev-nav .logo-box { width: 90px; height: 44px; background: #f0f0f0; }
+    .prev-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
+    .prev-nav ul a { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: #555; font-family: sans-serif; }
+    .prev-nav ul a.active { color: #5aaa5e; }
+
+    /* BANNER preview */
+    .prev-banner { width: 100%; height: 80px; background: #c8dcc8; display: flex; align-items: center; justify-content: center; font-family: sans-serif; font-size: 12px; color: #6a9c6a; }
+
+    /* SECTION HEADER preview */
+    .prev-header { padding: 24px 30px; text-align: center; background: #fff; }
+    .prev-icon { width: 48px; height: 48px; background: #eef6ee; border-radius: 4px; margin: 0 auto 10px; }
+    .prev-title { font-size: 18px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin: 0 0 8px; }
+    .prev-sub { font-size: 12px; color: #666; font-family: sans-serif; }
+
+    /* CARDS preview */
+    .prev-cards { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid #ddd; background: #fff; }
+    .prev-card { border-right: 1px solid #ddd; }
+    .prev-card:last-child { border-right: none; }
+    .prev-card-img { height: 55px; background: #d0e4d0; }
+    .prev-card-body { background: #eef6ee; padding: 10px 12px; }
+    .prev-card-icon { width: 28px; height: 28px; background: #d8eed8; margin-bottom: 6px; }
+    .prev-card-title { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin-bottom: 4px; }
+    .prev-card-text { font-size: 9px; color: #666; font-family: sans-serif; line-height: 1.5; }
+
+    /* PROCESS preview */
+    .prev-process { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 16px; background: #fff; }
+    .prev-proc-card { background: #6abf69; border-radius: 4px; padding: 12px; }
+    .prev-proc-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.2); margin-bottom: 8px; }
+    .prev-proc-title { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #fff; font-family: sans-serif; margin-bottom: 4px; }
+    .prev-proc-text { font-size: 9px; color: rgba(255,255,255,0.85); font-family: sans-serif; line-height: 1.5; }
+
+    /* FAQ preview */
+    .prev-faq { background: #fff; padding: 16px 30px; }
+    .prev-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 30px; }
+    .prev-faq-q { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin-bottom: 4px; }
+    .prev-faq-a { font-size: 9px; color: #666; font-family: sans-serif; line-height: 1.5; margin-bottom: 12px; }
+
+    /* FOOTER preview */
+    .prev-footer { background: #616161; padding: 16px 30px 0; }
+    .prev-footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; padding-bottom: 14px; }
+    .prev-footer-title { font-size: 10px; font-weight: 700; color: #fff; font-family: sans-serif; margin-bottom: 6px; }
+    .prev-footer-text { font-size: 9px; color: #bbb; font-family: sans-serif; line-height: 1.7; }
+    .prev-footer-social { border-top: 1px solid #777; padding: 10px 0; display: flex; justify-content: center; gap: 6px; }
+    .prev-social-dot { width: 22px; height: 22px; background: #888; border-radius: 50%; }
   </style>
 </head>
 <body>
 
-<h1>Bootstrap 5 – Spickzettel für die IFOM</h1>
+<div class="page-header">
+  <h1>BG Energie – Bausteine</h1>
+  <span class="badge-green">Cheatsheet</span>
+</div>
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>1. Grundgerüst einer HTML-Seite</h2>
-<pre>&lt;!DOCTYPE html&gt;
-&lt;html lang="de"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8" /&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-  &lt;title&gt;Seitentitel&lt;/title&gt;
-  &lt;link href="css/bootstrap.css" rel="stylesheet" /&gt;
-&lt;/head&gt;
-&lt;body&gt;
+<div class="layout">
 
-  &lt;!-- Inhalt hier --&gt;
+  <nav class="toc">
+    <h3>Bausteine</h3>
+    <a href="#nav">Navbar</a>
+    <a href="#banner">Banner / Bild</a>
+    <a href="#section-header">Section Header</a>
+    <a href="#cards">4 Karten</a>
+    <a href="#process">Prozess-Karten</a>
+    <a href="#faq">FAQ</a>
+    <a href="#footer">Footer</a>
+    <h3 style="margin-top:24px;">Bilder einbinden</h3>
+    <a href="#bilder">Wie geht das?</a>
+  </nav>
 
-  &lt;script src="js/bootstrap.bundle.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+  <div class="main">
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>2. Navbar</h2>
-<pre>&lt;nav class="navbar navbar-expand-lg bg-body-tertiary"&gt;
-  &lt;div class="container-fluid"&gt;
-
-    &lt;!-- Logo / Markenname --&gt;
-    &lt;a class="navbar-brand" href="#"&gt;MeinLogo&lt;/a&gt;
-
-    &lt;!-- Hamburger-Button (mobil) --&gt;
-    &lt;button class="navbar-toggler" type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navMenu"&gt;
-      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
-    &lt;/button&gt;
-
-    &lt;!-- Navigationslinks --&gt;
-    &lt;div class="collapse navbar-collapse" id="navMenu"&gt;
-      &lt;ul class="navbar-nav ms-auto"&gt;
-        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#section1"&gt;Über uns&lt;/a&gt;&lt;/li&gt;
-        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#section2"&gt;Leistungen&lt;/a&gt;&lt;/li&gt;
-        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#kontakt"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-
+    <!-- NAVBAR -->
+    <div class="block" id="nav">
+      <div class="block-title">Navbar <span class="tag">sticky</span></div>
+      <p class="note">Logo links (src eintragen), Nav-Links rechts. Aktiver Link grün.</p>
+      <div class="preview">
+        <div class="prev-nav">
+          <div class="logo-box"></div>
+          <ul>
+            <li><a href="#" class="active">Unser Angebot</a></li>
+            <li><a href="#">Vermieten</a></li>
+            <li><a href="#">Zusammenarbeit</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-nav', this)">Copy</button>
+      <pre id="code-nav">&lt;nav class="site-nav"&gt;
+  &lt;div class="inner"&gt;
+    &lt;img src="images/logo.png" class="logo" alt="Logo"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#angebot" class="active"&gt;UNSER ANGEBOT&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#vermieten"&gt;VERMIETEN&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#zusammenarbeit"&gt;ZUSAMMENARBEIT&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#faq"&gt;FAQ&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/nav&gt;</pre>
-<div class="note">⚠️ <code>ms-auto</code> = Links nach rechts schieben. <code>navbar-expand-lg</code> = ab 992px Desktop-Ansicht.</div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>3. Grid – Bild und Text nebeneinander (gleiche Höhe)</h2>
-<pre>&lt;div class="container"&gt;
-  &lt;div class="row align-items-center"&gt;   &lt;!-- align-items-center = vertikal zentriert --&gt;
+    <!-- BANNER -->
+    <div class="block" id="banner">
+      <div class="block-title">Fullwidth Banner <span class="tag">.banner-1 = 420px</span> <span class="tag">.banner-2 = 380px</span></div>
+      <p class="note">Breites Bild über volle Seitenbreite. Klasse .banner-1 oder .banner-2 für Höhe.</p>
+      <div class="preview">
+        <div class="prev-banner">[ Bild – volle Breite ]</div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-banner', this)">Copy</button>
+      <pre id="code-banner">&lt;div class="banner banner-1"&gt;
+  &lt;img src="images/solarpark.jpg" alt="Solarpark"&gt;
+&lt;/div&gt;
 
-    &lt;!-- Bild (links, halbe Breite auf md+) --&gt;
-    &lt;div class="col-12 col-md-6"&gt;
-      &lt;img src="img/foto.jpg" class="w-100" alt="Beschreibung" /&gt;
-    &lt;/div&gt;
-
-    &lt;!-- Text (rechts, halbe Breite auf md+) --&gt;
-    &lt;div class="col-12 col-md-6"&gt;
-      &lt;h2&gt;Überschrift&lt;/h2&gt;
-      &lt;p&gt;Hier steht der Text neben dem Bild.&lt;/p&gt;
-    &lt;/div&gt;
-
-  &lt;/div&gt;
+&lt;!-- Für kleineres Banner: --&gt;
+&lt;div class="banner banner-2"&gt;
+  &lt;img src="images/techniker.jpg" alt="Techniker"&gt;
 &lt;/div&gt;</pre>
-<div class="tip">✅ <code>col-12</code> = volle Breite auf Handy | <code>col-md-6</code> = halbe Breite ab Tablet</div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>4. Grid – 3 Spalten (z.B. 3 Cards)</h2>
-<pre>&lt;div class="container"&gt;
-  &lt;div class="row"&gt;
-
-    &lt;div class="col-12 col-md-4"&gt;
-      &lt;!-- Inhalt Spalte 1 --&gt;
-    &lt;/div&gt;
-
-    &lt;div class="col-12 col-md-4"&gt;
-      &lt;!-- Inhalt Spalte 2 --&gt;
-    &lt;/div&gt;
-
-    &lt;div class="col-12 col-md-4"&gt;
-      &lt;!-- Inhalt Spalte 3 --&gt;
-    &lt;/div&gt;
-
+    <!-- SECTION HEADER -->
+    <div class="block" id="section-header">
+      <div class="block-title">Section Header <span class="tag">Icon + Titel + Subtitle</span></div>
+      <p class="note">Zentriert. Icon oben, grüner Titel, grauer Untertitel. Für Angebot, Zusammenarbeit und FAQ.</p>
+      <div class="preview">
+        <div class="prev-header">
+          <div class="prev-icon"></div>
+          <div class="prev-title">Gerne machen wir Ihnen ein Angebot…!</div>
+          <div class="prev-sub">Sie besitzen eine geeignete Dach- oder Freifläche, möchten jedoch nicht selbst in eine Photovoltaik-Anlage investieren?</div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-header', this)">Copy</button>
+      <pre id="code-header">&lt;div class="angebot"&gt;  &lt;!-- oder .zusammenarbeit / .faq-section --&gt;
+  &lt;div class="section-icon"&gt;
+    &lt;img src="images/icon-angebot.svg" alt="Icon"&gt;
   &lt;/div&gt;
+  &lt;h2 class="green-title"&gt;Gerne machen wir Ihnen ein Angebot…!&lt;/h2&gt;
+  &lt;p class="subtitle"&gt;
+    Sie besitzen eine geeignete Dach- oder Freifläche, möchten jedoch
+    nicht selbst in eine Photovoltaik-Anlage investieren?&lt;br&gt;
+    Wir mieten Ihre verfügbaren Flächen.
+  &lt;/p&gt;
 &lt;/div&gt;</pre>
-<div class="note">⚠️ Bootstrap teilt in 12 Spalten. 4+4+4=12 → 3 gleiche Spalten. 6+6=12 → 2 gleiche.</div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>5. Card</h2>
-<pre>&lt;div class="card"&gt;
-  &lt;img src="img/bild.jpg" class="card-img-top" alt="..." /&gt;
-  &lt;div class="card-body"&gt;
-    &lt;h5 class="card-title"&gt;Titel der Card&lt;/h5&gt;
-    &lt;p class="card-text"&gt;Beschreibungstext hier.&lt;/p&gt;
-    &lt;a href="#" class="btn btn-primary"&gt;Mehr lesen&lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</pre>
+    <!-- 4 KARTEN -->
+    <div class="block" id="cards">
+      <div class="block-title">4 Karten <span class="tag">Foto oben + Icon + Text</span></div>
+      <p class="note">Grid mit 4 gleich breiten Spalten. Foto oben, hellgrüner Hintergrund unten mit Icon, Titel und Text.</p>
+      <div class="preview">
+        <div class="prev-cards">
+          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Gewerbe &amp; Unternehmen</div><div class="prev-card-text">Sie sind im Besitz von ungenutzten Dachflächen...</div></div></div>
+          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Landwirtschaft</div><div class="prev-card-text">Landwirtschaftliche Gebäude, Hallen und Freiflächen...</div></div></div>
+          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Gemeinden</div><div class="prev-card-text">Gemeinden sollten in Sachen Energiewende...</div></div></div>
+          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Privat</div><div class="prev-card-text">Sie sind Eigenheimbesitzer und wollen...</div></div></div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-cards', this)">Copy</button>
+      <pre id="code-cards">&lt;div class="cards-wrap"&gt;
+  &lt;div class="cards-row"&gt;
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>6. Carousel (Bildslider)</h2>
-<pre>&lt;div id="meinCarousel" class="carousel slide"&gt;
-
-  &lt;!-- Punkte unten --&gt;
-  &lt;div class="carousel-indicators"&gt;
-    &lt;button data-bs-target="#meinCarousel" data-bs-slide-to="0" class="active"&gt;&lt;/button&gt;
-    &lt;button data-bs-target="#meinCarousel" data-bs-slide-to="1"&gt;&lt;/button&gt;
-    &lt;button data-bs-target="#meinCarousel" data-bs-slide-to="2"&gt;&lt;/button&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Bilder --&gt;
-  &lt;div class="carousel-inner"&gt;
-    &lt;div class="carousel-item active"&gt;
-      &lt;img src="img/bild1.jpg" class="d-block w-100" alt="Slide 1" /&gt;
-    &lt;/div&gt;
-    &lt;div class="carousel-item"&gt;
-      &lt;img src="img/bild2.jpg" class="d-block w-100" alt="Slide 2" /&gt;
-    &lt;/div&gt;
-    &lt;div class="carousel-item"&gt;
-      &lt;img src="img/bild3.jpg" class="d-block w-100" alt="Slide 3" /&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Vor/Zurück Buttons --&gt;
-  &lt;button class="carousel-control-prev" data-bs-target="#meinCarousel" data-bs-slide="prev"&gt;
-    &lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;button class="carousel-control-next" data-bs-target="#meinCarousel" data-bs-slide="next"&gt;
-    &lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-&lt;/div&gt;</pre>
-<div class="note">⚠️ Genau ein <code>carousel-item</code> muss die Klasse <code>active</code> haben!</div>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>7. Button-Varianten</h2>
-<pre>&lt;a href="#" class="btn btn-primary"&gt;Blau&lt;/a&gt;
-&lt;a href="#" class="btn btn-secondary"&gt;Grau&lt;/a&gt;
-&lt;a href="#" class="btn btn-success"&gt;Grün&lt;/a&gt;
-&lt;a href="#" class="btn btn-danger"&gt;Rot&lt;/a&gt;
-&lt;a href="#" class="btn btn-outline-primary"&gt;Blau (Outline)&lt;/a&gt;
-&lt;a href="#" class="btn btn-lg btn-primary"&gt;Groß&lt;/a&gt;
-&lt;a href="#" class="btn btn-sm btn-primary"&gt;Klein&lt;/a&gt;</pre>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>8. Häufige Utility-Klassen</h2>
-<pre>&lt;!-- Abstände --&gt;
-class="mt-3"       /* margin-top */
-class="mb-4"       /* margin-bottom */
-class="ms-auto"    /* margin links = auto (schiebt nach rechts) */
-class="px-4"       /* padding links + rechts */
-class="py-5"       /* padding oben + unten */
-
-&lt;!-- Text --&gt;
-class="text-center"    /* zentriert */
-class="text-start"     /* linksbündig */
-class="text-end"       /* rechtsbündig */
-class="fw-bold"        /* fett */
-class="text-muted"     /* grau / gedimmt */
-
-&lt;!-- Bilder --&gt;
-class="w-100"          /* Breite 100% */
-class="img-fluid"      /* responsives Bild */
-class="rounded"        /* abgerundete Ecken */
-
-&lt;!-- Flexbox --&gt;
-class="d-flex"                  /* display flex */
-class="justify-content-center"  /* horizontal zentrieren */
-class="align-items-center"      /* vertikal zentrieren */
-class="gap-3"                   /* Abstand zwischen Flex-Kindern */
-
-&lt;!-- Sichtbarkeit --&gt;
-class="d-none d-md-block"   /* auf Handy versteckt, ab Tablet sichtbar */
-class="d-block d-md-none"   /* nur auf Handy sichtbar */</pre>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>9. Section mit Hintergrundfarbe (z.B. grauer Bereich)</h2>
-<pre>&lt;section class="container-fluid py-5" style="background-color: #e9ecef;"&gt;
-  &lt;div class="container"&gt;
-    &lt;h2&gt;Abschnittstitel&lt;/h2&gt;
-    &lt;p&gt;Text im grauen Bereich.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/section&gt;</pre>
-<div class="tip">✅ <code>container-fluid</code> = volle Breite (für Hintergrund). <code>container</code> innen = Inhalt bleibt zentriert und begrenzt.</div>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>10. Footer</h2>
-<pre>&lt;footer class="container-fluid py-4 mt-5" style="background-color: #212529; color: #f8f9fa;"&gt;
-  &lt;div class="container"&gt;
-    &lt;div class="row"&gt;
-      &lt;div class="col-md-6"&gt;
-        &lt;h5&gt;Firmenname&lt;/h5&gt;
-        &lt;p&gt;Adresse, PLZ Ort&lt;br /&gt;Tel: 0123 456789&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="col-md-6 text-md-end"&gt;
-        &lt;p&gt;&amp;copy; 2025 Firmenname. Alle Rechte vorbehalten.&lt;/p&gt;
-        &lt;a href="#" style="color: #adb5bd;"&gt;Impressum&lt;/a&gt;
+    &lt;div class="card-col"&gt;
+      &lt;img src="images/foto-gewerbe.jpg" class="card-img" alt="Gewerbe"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;span class="card-icon"&gt;&lt;img src="images/icon-gewerbe.svg" alt=""&gt;&lt;/span&gt;
+        &lt;h4&gt;Gewerbe &amp;amp; Unternehmen&lt;/h4&gt;
+        &lt;p&gt;Sie sind im Besitz von ungenutzten Dachflächen? Stellen Sie uns
+        die Flächen zur Verfügung wir stellen Ihnen dann Sonnenstrom
+        zur Verfügung.&lt;/p&gt;
       &lt;/div&gt;
     &lt;/div&gt;
+
+    &lt;!-- Karte 2, 3, 4 gleich aufgebaut --&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <!-- PROZESS-KARTEN -->
+    <div class="block" id="process">
+      <div class="block-title">Prozess-Karten <span class="tag">4× grün</span></div>
+      <p class="note">4 grüne Karten nebeneinander. Icon oben (weiß), Nummer + Titel, Text.</p>
+      <div class="preview">
+        <div class="prev-process">
+          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">1. Kontaktaufnahme</div><div class="prev-proc-text">Senden Sie uns Ihre Flächen- oder Projektdaten, Standort und Größe.</div></div>
+          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">2. Planung</div><div class="prev-proc-text">Wir stimmen mit dem jeweiligen Netzbetreiber die Einspeiseleistung ab.</div></div>
+          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">3. Installation</div><div class="prev-proc-text">Wenn alle Genehmigungen vorliegen beginnen wir mit der Montage.</div></div>
+          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">4. Service &amp; Wartung</div><div class="prev-proc-text">Wir kümmern uns um Funktion, Wartung und Versicherung.</div></div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-process', this)">Copy</button>
+      <pre id="code-process">&lt;div class="process-wrap"&gt;
+  &lt;div class="process-row"&gt;
+
+    &lt;div class="process-card"&gt;
+      &lt;span class="p-icon"&gt;&lt;img src="images/icon-kontakt.svg" alt=""&gt;&lt;/span&gt;
+      &lt;h4&gt;1. Kontaktaufnahme&lt;/h4&gt;
+      &lt;p&gt;Senden Sie uns Ihre Flächen- oder Projektdaten, Standort und Größe.
+      Wir analysieren die Daten und planen die optimale PV-Anlage.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Karten 2, 3, 4 gleich aufgebaut --&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <!-- FAQ -->
+    <div class="block" id="faq">
+      <div class="block-title">FAQ <span class="tag">2-spaltig</span></div>
+      <p class="note">2-spaltiges Grid. Grüne Frage-Überschrift (uppercase), grauer Antworttext.</p>
+      <div class="preview">
+        <div class="prev-faq">
+          <div class="prev-faq-grid">
+            <div><div class="prev-faq-q">Wie lange läuft der Mietvertrag?</div><div class="prev-faq-a">Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden die Dachflächen zwischen 10 und 20 Jahre zur Verfügung gestellt.</div></div>
+            <div><div class="prev-faq-q">Werden die Anlagen auch mit Speicher kombiniert?</div><div class="prev-faq-a">Je nach Standort und Wirtschaftlichkeit werden geeignete Lösungen angeboten.</div></div>
+            <div><div class="prev-faq-q">Was sind die Benefits der Vermietung?</div><div class="prev-faq-a">Die Dacheigentümer*innen erhalten ein Nutzungsentgelt in Form einer jährlichen Barleistung.</div></div>
+            <div><div class="prev-faq-q">Wie wird die PV-Anlage finanziert?</div><div class="prev-faq-a">Über ein bewährtes Bürgerbeteiligungsmodell, ab Euro 500,- können Sonnenbausteine gekauft werden.</div></div>
+          </div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-faq', this)">Copy</button>
+      <pre id="code-faq">&lt;div class="faq-section"&gt;
+  &lt;div class="section-icon"&gt;
+    &lt;img src="images/icon-faq.svg" alt=""&gt;
+  &lt;/div&gt;
+  &lt;h2 class="green-title"&gt;Fragen &amp;amp; Antworten&lt;/h2&gt;
+
+  &lt;div class="faq-grid"&gt;
+
+    &lt;div class="faq-item"&gt;
+      &lt;h4&gt;Wie lange läuft der Mietvertrag?&lt;/h4&gt;
+      &lt;p&gt;Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden
+      die Dachflächen zwischen 10 und 20 Jahre zur Verfügung gestellt.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Weitere .faq-item gleich aufgebaut --&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="block" id="footer">
+      <div class="block-title">Footer <span class="tag">3-spaltig + Social Icons</span></div>
+      <p class="note">Dunkelgrauer Hintergrund (#616161). 3 Spalten: Kontakt, Datenschutz, Copyright. Social Icons unten zentriert.</p>
+      <div class="preview">
+        <div class="prev-footer">
+          <div class="prev-footer-grid">
+            <div><div class="prev-footer-title">Bad Gleichenberger Erneuerbare Energie</div><div class="prev-footer-text">Bairisch Kölldorf 12<br>A-8344 Bad Gleichenberg<br>03159 / 2244-30<br>office@bg-energie.at</div></div>
+            <div><div class="prev-footer-title">Datenschutz</div><div class="prev-footer-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</div></div>
+            <div><div class="prev-footer-title">Copyright</div><div class="prev-footer-text">© 2020 Alle Rechte vorbehalten. Bad Gleichenberger Energie GmbH.</div></div>
+          </div>
+          <div class="prev-footer-social">
+            <div class="prev-social-dot"></div>
+            <div class="prev-social-dot"></div>
+            <div class="prev-social-dot"></div>
+            <div class="prev-social-dot"></div>
+          </div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyBlock('code-footer', this)">Copy</button>
+      <pre id="code-footer">&lt;footer&gt;
+  &lt;div class="footer-inner"&gt;
+    &lt;div&gt;
+      &lt;h5&gt;Bad Gleichenberger&lt;br&gt;Erneuerbare Energie&lt;/h5&gt;
+      &lt;address&gt;
+        Bairisch Kölldorf 12&lt;br&gt;
+        A-8344 Bad Gleichenberg&lt;br&gt;
+        ☎&amp;nbsp;03159 / 2244-30 &amp;bull; 03159 / 3055&lt;br&gt;
+        ✉&amp;nbsp;&lt;a href="mailto:office@bg-energie.at"&gt;office@bg-energie.at&lt;/a&gt;&lt;br&gt;
+        🌐&amp;nbsp;&lt;a href="http://www.bg-energie.at"&gt;www.bg-energie.at&lt;/a&gt;
+      &lt;/address&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;h5&gt;Datenschutz&lt;/h5&gt;
+      &lt;p&gt;Lorem ipsum...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;h5&gt;Copyright&lt;/h5&gt;
+      &lt;p&gt;&amp;copy; 2020 Alle Rechte vorbehalten...&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="footer-social"&gt;
+    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG Facebook --&gt;&lt;/a&gt;
+    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG YouTube --&gt;&lt;/a&gt;
+    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG Instagram --&gt;&lt;/a&gt;
+    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG LinkedIn --&gt;&lt;/a&gt;
   &lt;/div&gt;
 &lt;/footer&gt;</pre>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>11. CSS-Variablen (eigene Farben)</h2>
-<pre>/* In style.css ganz oben definieren: */
-:root {
-  --farbe-primary: #2c6e49;
-  --farbe-accent:  #f4a261;
-  --farbe-bg:      #f8f9fa;
-  --farbe-text:    #333333;
+    <!-- BILDER EINBINDEN -->
+    <div class="block" id="bilder">
+      <div class="block-title">Bilder einbinden</div>
+      <p class="note">Alle Bildstellen sind mit leerem src="" vorbereitet. Einfach den Pfad eintragen:</p>
+      <pre>Bildstelle              HTML-Tag                     src eintragen
+─────────────────────────────────────────────────────────────────────
+Logo                    &lt;img class="logo"&gt;            src="images/logo.png"
+Hero-Banner             &lt;img&gt; in .banner.banner-1     src="images/hero.jpg"
+Icon Angebot            &lt;img&gt; in .section-icon        src="images/icon-angebot.svg"
+Foto Gewerbe            &lt;img class="card-img"&gt;        src="images/foto-gewerbe.jpg"
+Foto Landwirtschaft     &lt;img class="card-img"&gt;        src="images/foto-landwirtschaft.jpg"
+Foto Gemeinden          &lt;img class="card-img"&gt;        src="images/foto-gemeinden.jpg"
+Foto Privat             &lt;img class="card-img"&gt;        src="images/foto-privat.jpg"
+Icon Gewerbe            &lt;img&gt; in .card-icon           src="images/icon-gewerbe.svg"
+Icon Landwirtschaft     &lt;img&gt; in .card-icon           src="images/icon-landwirtschaft.svg"
+Icon Gemeinden          &lt;img&gt; in .card-icon           src="images/icon-gemeinden.svg"
+Icon Privat             &lt;img&gt; in .card-icon           src="images/icon-privat.svg"
+Solarpark-Banner        &lt;img&gt; in .banner.banner-1     src="images/solarpark.jpg"
+Icon Zusammenarbeit     &lt;img&gt; in .section-icon        src="images/icon-zusammenarbeit.svg"
+Icon Kontaktaufnahme    &lt;img&gt; in .p-icon              src="images/icon-kontakt.svg"
+Icon Planung            &lt;img&gt; in .p-icon              src="images/icon-planung.svg"
+Icon Installation       &lt;img&gt; in .p-icon              src="images/icon-installation.svg"
+Icon Service            &lt;img&gt; in .p-icon              src="images/icon-service.svg"
+Techniker-Banner        &lt;img&gt; in .banner.banner-2     src="images/techniker.jpg"
+Icon FAQ                &lt;img&gt; in .section-icon        src="images/icon-faq.svg"</pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function copyBlock(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Kopiert ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
 }
 
-/* Dann verwenden: */
-h1 {
-  color: var(--farbe-primary);
-}
-.btn-custom {
-  background-color: var(--farbe-accent);
-}</pre>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<h2>12. Smooth Scroll (in style.css)</h2>
-<pre>html {
-  scroll-behavior: smooth;
-}</pre>
-<div class="tip">✅ Damit scrollen Anker-Links (<code>href="#section1"</code>) sanft statt zu springen.</div>
-
+const links = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.block').forEach(b => observer.observe(b));
+</script>
 </body>
 </html>
