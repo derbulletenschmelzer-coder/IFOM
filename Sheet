@@ -3,138 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cheatsheet – BG Energie Bausteine</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <title>BG Energie – Cheatsheet</title>
   <style>
-    body { font-family: monospace; background: #1e1e1e; color: #ccc; margin: 0; padding: 0; }
-    h1 { font-family: sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin: 0; }
-    .page-header { background: #111; padding: 28px 40px; border-bottom: 3px solid #5aaa5e; display: flex; align-items: center; gap: 14px; }
-    .badge-green { background: #5aaa5e; color: #fff; font-size: 11px; font-family: sans-serif; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
-    .toc { background: #161616; border-right: 1px solid #333; padding: 28px 20px; min-width: 220px; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
-    .toc h3 { font-family: sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #777; margin: 0 0 14px; }
-    .toc a { display: block; font-family: sans-serif; font-size: 13px; color: #999; text-decoration: none; padding: 5px 8px; border-radius: 4px; margin-bottom: 2px; }
-    .toc a:hover, .toc a.active { background: #5aaa5e22; color: #5aaa5e; }
-    .main { flex: 1; padding: 40px; overflow-y: auto; }
-    .layout { display: flex; min-height: 100vh; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f4f4f4; color: #222; display: flex; min-height: 100vh; }
 
-    .block { margin-bottom: 48px; }
-    .block-title {
-      font-family: sans-serif; font-size: 13px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      color: #5aaa5e; margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
+    /* SIDEBAR */
+    aside {
+      width: 200px; flex-shrink: 0; background: #1e1e1e;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      padding: 24px 16px;
     }
-    .block-title::after { content: ''; flex: 1; height: 1px; background: #333; }
-    .tag { background: #2a2a2a; border: 1px solid #444; font-size: 11px; color: #aaa; padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+    aside h2 { color: #5aaa5e; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+    aside a { display: block; color: #aaa; text-decoration: none; font-size: 13px; padding: 6px 8px; border-radius: 4px; margin-bottom: 2px; }
+    aside a:hover { background: #2a2a2a; color: #fff; }
 
-    .preview { background: #fff; border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
-    pre {
-      background: #111; border: 1px solid #333; border-radius: 6px;
-      padding: 16px 18px; margin: 0; overflow-x: auto;
-      font-size: 12.5px; line-height: 1.6; color: #ccc;
-    }
-    .copy-btn {
-      background: #2a2a2a; border: 1px solid #444; color: #aaa;
-      font-size: 11px; font-family: sans-serif; font-weight: 700;
-      padding: 5px 14px; border-radius: 4px; cursor: pointer;
-      letter-spacing: 0.05em; margin-bottom: 8px; display: inline-block;
-    }
-    .copy-btn:hover { background: #5aaa5e; border-color: #5aaa5e; color: #fff; }
-    .copy-btn.copied { background: #3a7d3e; border-color: #3a7d3e; color: #fff; }
+    /* MAIN */
+    main { flex: 1; padding: 40px; max-width: 960px; }
+    h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .tagline { color: #888; font-size: 13px; margin-bottom: 36px; }
 
-    .note { font-family: sans-serif; font-size: 12px; color: #777; margin-bottom: 8px; font-style: italic; }
+    /* BLOCK */
+    .block { background: #fff; border-radius: 8px; margin-bottom: 28px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .block-head { background: #1e1e1e; padding: 12px 18px; display: flex; align-items: center; gap: 10px; }
+    .block-head h3 { color: #fff; font-size: 14px; font-weight: 700; }
+    .block-head .tag { background: #5aaa5e; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: .05em; }
+    .block-note { padding: 10px 18px; font-size: 12px; color: #666; background: #fafafa; border-bottom: 1px solid #eee; }
+    pre { padding: 18px; font-size: 12.5px; line-height: 1.65; overflow-x: auto; background: #fff; color: #333; }
 
-    /* ── PREVIEWS ── */
+    /* COPY BTN */
+    .copy-wrap { padding: 0 18px 14px; }
+    button { background: #1e1e1e; color: #aaa; border: none; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: .07em; padding: 5px 14px; cursor: pointer; }
+    button:hover { background: #5aaa5e; color: #fff; }
+    button.ok { background: #3a7d3e; color: #fff; }
 
-    /* NAV preview */
-    .prev-nav { background: #fff; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; height: 70px; }
-    .prev-nav .logo-box { width: 90px; height: 44px; background: #f0f0f0; }
-    .prev-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
-    .prev-nav ul a { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: #555; font-family: sans-serif; }
-    .prev-nav ul a.active { color: #5aaa5e; }
-
-    /* BANNER preview */
-    .prev-banner { width: 100%; height: 80px; background: #c8dcc8; display: flex; align-items: center; justify-content: center; font-family: sans-serif; font-size: 12px; color: #6a9c6a; }
-
-    /* SECTION HEADER preview */
-    .prev-header { padding: 24px 30px; text-align: center; background: #fff; }
-    .prev-icon { width: 48px; height: 48px; background: #eef6ee; border-radius: 4px; margin: 0 auto 10px; }
-    .prev-title { font-size: 18px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin: 0 0 8px; }
-    .prev-sub { font-size: 12px; color: #666; font-family: sans-serif; }
-
-    /* CARDS preview */
-    .prev-cards { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid #ddd; background: #fff; }
-    .prev-card { border-right: 1px solid #ddd; }
-    .prev-card:last-child { border-right: none; }
-    .prev-card-img { height: 55px; background: #d0e4d0; }
-    .prev-card-body { background: #eef6ee; padding: 10px 12px; }
-    .prev-card-icon { width: 28px; height: 28px; background: #d8eed8; margin-bottom: 6px; }
-    .prev-card-title { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin-bottom: 4px; }
-    .prev-card-text { font-size: 9px; color: #666; font-family: sans-serif; line-height: 1.5; }
-
-    /* PROCESS preview */
-    .prev-process { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 16px; background: #fff; }
-    .prev-proc-card { background: #6abf69; border-radius: 4px; padding: 12px; }
-    .prev-proc-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.2); margin-bottom: 8px; }
-    .prev-proc-title { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #fff; font-family: sans-serif; margin-bottom: 4px; }
-    .prev-proc-text { font-size: 9px; color: rgba(255,255,255,0.85); font-family: sans-serif; line-height: 1.5; }
-
-    /* FAQ preview */
-    .prev-faq { background: #fff; padding: 16px 30px; }
-    .prev-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 30px; }
-    .prev-faq-q { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #5aaa5e; font-family: sans-serif; margin-bottom: 4px; }
-    .prev-faq-a { font-size: 9px; color: #666; font-family: sans-serif; line-height: 1.5; margin-bottom: 12px; }
-
-    /* FOOTER preview */
-    .prev-footer { background: #616161; padding: 16px 30px 0; }
-    .prev-footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; padding-bottom: 14px; }
-    .prev-footer-title { font-size: 10px; font-weight: 700; color: #fff; font-family: sans-serif; margin-bottom: 6px; }
-    .prev-footer-text { font-size: 9px; color: #bbb; font-family: sans-serif; line-height: 1.7; }
-    .prev-footer-social { border-top: 1px solid #777; padding: 10px 0; display: flex; justify-content: center; gap: 6px; }
-    .prev-social-dot { width: 22px; height: 22px; background: #888; border-radius: 50%; }
+    /* TABELLE */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #1e1e1e; color: #fff; padding: 9px 14px; text-align: left; font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    td { padding: 8px 14px; border-bottom: 1px solid #eee; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fdf9; }
+    code { background: #eef6ee; color: #3a7d3e; padding: 1px 6px; border-radius: 3px; font-size: 11.5px; }
   </style>
 </head>
 <body>
 
-<div class="page-header">
-  <h1>BG Energie – Bausteine</h1>
-  <span class="badge-green">Cheatsheet</span>
-</div>
+<aside>
+  <h2>Bausteine</h2>
+  <a href="#nav">Navbar</a>
+  <a href="#banner">Banner</a>
+  <a href="#header">Section Header</a>
+  <a href="#cards">4 Karten</a>
+  <a href="#process">Prozess-Karten</a>
+  <a href="#faq">FAQ</a>
+  <a href="#footer">Footer</a>
+  <a href="#bilder">📷 Bildübersicht</a>
+</aside>
 
-<div class="layout">
+<main>
+  <h1>BG Energie – Cheatsheet</h1>
+  <p class="tagline">Alle Bausteine der Seite auf einen Blick. Code einfach rauskopieren.</p>
 
-  <nav class="toc">
-    <h3>Bausteine</h3>
-    <a href="#nav">Navbar</a>
-    <a href="#banner">Banner / Bild</a>
-    <a href="#section-header">Section Header</a>
-    <a href="#cards">4 Karten</a>
-    <a href="#process">Prozess-Karten</a>
-    <a href="#faq">FAQ</a>
-    <a href="#footer">Footer</a>
-    <h3 style="margin-top:24px;">Bilder einbinden</h3>
-    <a href="#bilder">Wie geht das?</a>
-  </nav>
-
-  <div class="main">
-
-    <!-- NAVBAR -->
-    <div class="block" id="nav">
-      <div class="block-title">Navbar <span class="tag">sticky</span></div>
-      <p class="note">Logo links (src eintragen), Nav-Links rechts. Aktiver Link grün.</p>
-      <div class="preview">
-        <div class="prev-nav">
-          <div class="logo-box"></div>
-          <ul>
-            <li><a href="#" class="active">Unser Angebot</a></li>
-            <li><a href="#">Vermieten</a></li>
-            <li><a href="#">Zusammenarbeit</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-nav', this)">Copy</button>
-      <pre id="code-nav">&lt;nav class="site-nav"&gt;
+  <!-- NAVBAR -->
+  <div class="block" id="nav">
+    <div class="block-head"><h3>Navbar</h3><span class="tag">sticky</span></div>
+    <div class="block-note">Logo links (<code>src</code> eintragen), 4 Links rechts. Aktiver Link → Klasse <code>active</code> setzen.</div>
+    <pre id="c-nav">&lt;nav class="site-nav"&gt;
   &lt;div class="inner"&gt;
     &lt;img src="images/logo.png" class="logo" alt="Logo"&gt;
     &lt;ul&gt;
@@ -145,65 +79,47 @@
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/nav&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-nav',this)">Copy</button></div>
+  </div>
 
-    <!-- BANNER -->
-    <div class="block" id="banner">
-      <div class="block-title">Fullwidth Banner <span class="tag">.banner-1 = 420px</span> <span class="tag">.banner-2 = 380px</span></div>
-      <p class="note">Breites Bild über volle Seitenbreite. Klasse .banner-1 oder .banner-2 für Höhe.</p>
-      <div class="preview">
-        <div class="prev-banner">[ Bild – volle Breite ]</div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-banner', this)">Copy</button>
-      <pre id="code-banner">&lt;div class="banner banner-1"&gt;
-  &lt;img src="images/solarpark.jpg" alt="Solarpark"&gt;
+  <!-- BANNER -->
+  <div class="block" id="banner">
+    <div class="block-head"><h3>Banner (Fullwidth-Bild)</h3><span class="tag">.banner-1 = 420px</span><span class="tag">.banner-2 = 380px</span></div>
+    <div class="block-note">Breites Foto über volle Seitenbreite. Klasse wechseln für andere Höhe.</div>
+    <pre id="c-banner">&lt;div class="banner banner-1"&gt;
+  &lt;img src="images/hero.jpg" alt="Sonnenblumen mit Solarpanel"&gt;
 &lt;/div&gt;
 
-&lt;!-- Für kleineres Banner: --&gt;
 &lt;div class="banner banner-2"&gt;
   &lt;img src="images/techniker.jpg" alt="Techniker"&gt;
 &lt;/div&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-banner',this)">Copy</button></div>
+  </div>
 
-    <!-- SECTION HEADER -->
-    <div class="block" id="section-header">
-      <div class="block-title">Section Header <span class="tag">Icon + Titel + Subtitle</span></div>
-      <p class="note">Zentriert. Icon oben, grüner Titel, grauer Untertitel. Für Angebot, Zusammenarbeit und FAQ.</p>
-      <div class="preview">
-        <div class="prev-header">
-          <div class="prev-icon"></div>
-          <div class="prev-title">Gerne machen wir Ihnen ein Angebot…!</div>
-          <div class="prev-sub">Sie besitzen eine geeignete Dach- oder Freifläche, möchten jedoch nicht selbst in eine Photovoltaik-Anlage investieren?</div>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-header', this)">Copy</button>
-      <pre id="code-header">&lt;div class="angebot"&gt;  &lt;!-- oder .zusammenarbeit / .faq-section --&gt;
+  <!-- SECTION HEADER -->
+  <div class="block" id="header">
+    <div class="block-head"><h3>Section Header</h3><span class="tag">Icon + Titel + Subtitle</span></div>
+    <div class="block-note">Zentriert. Klasse je nach Sektion: <code>.angebot</code> / <code>.zusammenarbeit</code> / <code>.faq-section</code></div>
+    <pre id="c-header">&lt;div class="angebot"&gt;
   &lt;div class="section-icon"&gt;
     &lt;img src="images/icon-angebot.svg" alt="Icon"&gt;
   &lt;/div&gt;
-  &lt;h2 class="green-title"&gt;Gerne machen wir Ihnen ein Angebot…!&lt;/h2&gt;
+  &lt;h2 class="green-title"&gt;Gerne machen wir Ihnen ein Angebot&amp;hellip;!&lt;/h2&gt;
   &lt;p class="subtitle"&gt;
-    Sie besitzen eine geeignete Dach- oder Freifläche, möchten jedoch
+    Sie besitzen eine geeignete Dach- oder Freifl&amp;auml;che, m&amp;ouml;chten jedoch
     nicht selbst in eine Photovoltaik-Anlage investieren?&lt;br&gt;
-    Wir mieten Ihre verfügbaren Flächen.
+    Wir mieten Ihre verf&amp;uuml;gbaren Fl&amp;auml;chen. Werden Sie Teil der
+    Energiewende in &amp;Ouml;sterreich.
   &lt;/p&gt;
 &lt;/div&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-header',this)">Copy</button></div>
+  </div>
 
-    <!-- 4 KARTEN -->
-    <div class="block" id="cards">
-      <div class="block-title">4 Karten <span class="tag">Foto oben + Icon + Text</span></div>
-      <p class="note">Grid mit 4 gleich breiten Spalten. Foto oben, hellgrüner Hintergrund unten mit Icon, Titel und Text.</p>
-      <div class="preview">
-        <div class="prev-cards">
-          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Gewerbe &amp; Unternehmen</div><div class="prev-card-text">Sie sind im Besitz von ungenutzten Dachflächen...</div></div></div>
-          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Landwirtschaft</div><div class="prev-card-text">Landwirtschaftliche Gebäude, Hallen und Freiflächen...</div></div></div>
-          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Gemeinden</div><div class="prev-card-text">Gemeinden sollten in Sachen Energiewende...</div></div></div>
-          <div class="prev-card"><div class="prev-card-img"></div><div class="prev-card-body"><div class="prev-card-icon"></div><div class="prev-card-title">Privat</div><div class="prev-card-text">Sie sind Eigenheimbesitzer und wollen...</div></div></div>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-cards', this)">Copy</button>
-      <pre id="code-cards">&lt;div class="cards-wrap"&gt;
+  <!-- 4 KARTEN -->
+  <div class="block" id="cards">
+    <div class="block-head"><h3>4 Karten</h3><span class="tag">Foto + Icon + Text</span></div>
+    <div class="block-note">Grid mit 4 gleichen Spalten. Foto oben, hellgrüner Body unten. Für jede Karte Foto-src und Icon-src eintragen.</div>
+    <pre id="c-cards">&lt;div class="cards-wrap" id="vermieten"&gt;
   &lt;div class="cards-row"&gt;
 
     &lt;div class="card-col"&gt;
@@ -211,63 +127,99 @@
       &lt;div class="card-body"&gt;
         &lt;span class="card-icon"&gt;&lt;img src="images/icon-gewerbe.svg" alt=""&gt;&lt;/span&gt;
         &lt;h4&gt;Gewerbe &amp;amp; Unternehmen&lt;/h4&gt;
-        &lt;p&gt;Sie sind im Besitz von ungenutzten Dachflächen? Stellen Sie uns
-        die Flächen zur Verfügung wir stellen Ihnen dann Sonnenstrom
-        zur Verfügung.&lt;/p&gt;
+        &lt;p&gt;Sie sind im Besitz von ungenutzten Dachfl&amp;auml;chen? Stellen Sie uns die
+        Fl&amp;auml;chen zur Verf&amp;uuml;gung wir stellen Ihnen dann Sonnenstrom zur
+        Verf&amp;uuml;gung.&lt;/p&gt;
       &lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;!-- Karte 2, 3, 4 gleich aufgebaut --&gt;
+    &lt;div class="card-col"&gt;
+      &lt;img src="images/foto-landwirtschaft.jpg" class="card-img" alt="Landwirtschaft"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;span class="card-icon"&gt;&lt;img src="images/icon-landwirtschaft.svg" alt=""&gt;&lt;/span&gt;
+        &lt;h4&gt;Landwirtschaft&lt;/h4&gt;
+        &lt;p&gt;Landwirtschaftliche Geb&amp;auml;ude, Hallen und Freifl&amp;auml;chen sind aufgrund
+        ihrer Gr&amp;ouml;&amp;szlig;e und Lage perfekt f&amp;uuml;r die Installation von
+        Photovoltaik-Anlagen geeignet.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card-col"&gt;
+      &lt;img src="images/foto-gemeinden.jpg" class="card-img" alt="Gemeinden"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;span class="card-icon"&gt;&lt;img src="images/icon-gemeinden.svg" alt=""&gt;&lt;/span&gt;
+        &lt;h4&gt;Gemeinden&lt;/h4&gt;
+        &lt;p&gt;Gemeinden sollten in Sachen Energiewende eine Vorbildwirkung
+        aus&amp;uuml;ben. Freie und ungenutzte Fl&amp;auml;chen stehen immer wieder zur
+        Verf&amp;uuml;gung.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card-col"&gt;
+      &lt;img src="images/foto-privat.jpg" class="card-img" alt="Privat"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;span class="card-icon"&gt;&lt;img src="images/icon-privat.svg" alt=""&gt;&lt;/span&gt;
+        &lt;h4&gt;Privat&lt;/h4&gt;
+        &lt;p&gt;Sie sind Eigenheimbesitzer und vollen nicht selbst in eine
+        Photovoltaik-Anlage investieren. Wir bieten Ihnen die M&amp;ouml;glichkeit
+        Sonnenstrom zu beziehen.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
 
   &lt;/div&gt;
 &lt;/div&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-cards',this)">Copy</button></div>
+  </div>
 
-    <!-- PROZESS-KARTEN -->
-    <div class="block" id="process">
-      <div class="block-title">Prozess-Karten <span class="tag">4× grün</span></div>
-      <p class="note">4 grüne Karten nebeneinander. Icon oben (weiß), Nummer + Titel, Text.</p>
-      <div class="preview">
-        <div class="prev-process">
-          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">1. Kontaktaufnahme</div><div class="prev-proc-text">Senden Sie uns Ihre Flächen- oder Projektdaten, Standort und Größe.</div></div>
-          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">2. Planung</div><div class="prev-proc-text">Wir stimmen mit dem jeweiligen Netzbetreiber die Einspeiseleistung ab.</div></div>
-          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">3. Installation</div><div class="prev-proc-text">Wenn alle Genehmigungen vorliegen beginnen wir mit der Montage.</div></div>
-          <div class="prev-proc-card"><div class="prev-proc-icon"></div><div class="prev-proc-title">4. Service &amp; Wartung</div><div class="prev-proc-text">Wir kümmern uns um Funktion, Wartung und Versicherung.</div></div>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-process', this)">Copy</button>
-      <pre id="code-process">&lt;div class="process-wrap"&gt;
+  <!-- PROZESS -->
+  <div class="block" id="process">
+    <div class="block-head"><h3>Prozess-Karten</h3><span class="tag">4× grün</span></div>
+    <div class="block-note">4 grüne Karten nebeneinander. Icon oben (weiß), Nummer + Titel, Text.</div>
+    <pre id="c-process">&lt;div class="process-wrap"&gt;
   &lt;div class="process-row"&gt;
 
     &lt;div class="process-card"&gt;
       &lt;span class="p-icon"&gt;&lt;img src="images/icon-kontakt.svg" alt=""&gt;&lt;/span&gt;
       &lt;h4&gt;1. Kontaktaufnahme&lt;/h4&gt;
-      &lt;p&gt;Senden Sie uns Ihre Flächen- oder Projektdaten, Standort und Größe.
-      Wir analysieren die Daten und planen die optimale PV-Anlage.&lt;/p&gt;
+      &lt;p&gt;Senden Sie uns Ihre Fl&amp;auml;chen- oder Projektdaten, Standort und
+      Gr&amp;ouml;&amp;szlig;e. Wir analysieren die Daten und planen die optimale
+      PV-Anlage f&amp;uuml;r diesen Standort.&lt;/p&gt;
     &lt;/div&gt;
 
-    &lt;!-- Karten 2, 3, 4 gleich aufgebaut --&gt;
+    &lt;div class="process-card"&gt;
+      &lt;span class="p-icon"&gt;&lt;img src="images/icon-planung.svg" alt=""&gt;&lt;/span&gt;
+      &lt;h4&gt;2. Planung&lt;/h4&gt;
+      &lt;p&gt;Wir stimmen mit dem jeweiligen Netzbetreiber die Einspeiseleistung
+      ab. Nach Abschluss des Fl&amp;auml;chennutzungsvertrages und der
+      Wirtschaftlichkeitspr&amp;uuml;fung beginnen wir mit der Planung.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="process-card"&gt;
+      &lt;span class="p-icon"&gt;&lt;img src="images/icon-installation.svg" alt=""&gt;&lt;/span&gt;
+      &lt;h4&gt;3. Installation&lt;/h4&gt;
+      &lt;p&gt;Wenn alle Genehmigungen vorliegen und alle offenen Punkte
+      gekl&amp;auml;rt sind, beginnen wir mit der professionellen Montage
+      der Photovoltaik-Anlage.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="process-card"&gt;
+      &lt;span class="p-icon"&gt;&lt;img src="images/icon-service.svg" alt=""&gt;&lt;/span&gt;
+      &lt;h4&gt;4. Service &amp;amp; Wartung&lt;/h4&gt;
+      &lt;p&gt;Sie haben keinen Aufwand. Wir k&amp;uuml;mmern uns w&amp;auml;hrend der ganzen
+      Vertragslaufzeit um die Funktion, Wartung und die Versicherung
+      der Photovoltaik-Anlage.&lt;/p&gt;
+    &lt;/div&gt;
 
   &lt;/div&gt;
 &lt;/div&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-process',this)">Copy</button></div>
+  </div>
 
-    <!-- FAQ -->
-    <div class="block" id="faq">
-      <div class="block-title">FAQ <span class="tag">2-spaltig</span></div>
-      <p class="note">2-spaltiges Grid. Grüne Frage-Überschrift (uppercase), grauer Antworttext.</p>
-      <div class="preview">
-        <div class="prev-faq">
-          <div class="prev-faq-grid">
-            <div><div class="prev-faq-q">Wie lange läuft der Mietvertrag?</div><div class="prev-faq-a">Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden die Dachflächen zwischen 10 und 20 Jahre zur Verfügung gestellt.</div></div>
-            <div><div class="prev-faq-q">Werden die Anlagen auch mit Speicher kombiniert?</div><div class="prev-faq-a">Je nach Standort und Wirtschaftlichkeit werden geeignete Lösungen angeboten.</div></div>
-            <div><div class="prev-faq-q">Was sind die Benefits der Vermietung?</div><div class="prev-faq-a">Die Dacheigentümer*innen erhalten ein Nutzungsentgelt in Form einer jährlichen Barleistung.</div></div>
-            <div><div class="prev-faq-q">Wie wird die PV-Anlage finanziert?</div><div class="prev-faq-a">Über ein bewährtes Bürgerbeteiligungsmodell, ab Euro 500,- können Sonnenbausteine gekauft werden.</div></div>
-          </div>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-faq', this)">Copy</button>
-      <pre id="code-faq">&lt;div class="faq-section"&gt;
+  <!-- FAQ -->
+  <div class="block" id="faq">
+    <div class="block-head"><h3>FAQ</h3><span class="tag">2-spaltig</span></div>
+    <div class="block-note">Jede Frage ist ein <code>.faq-item</code>. Grüne Überschrift, grauer Text.</div>
+    <pre id="c-faq">&lt;div class="faq-section" id="faq"&gt;
   &lt;div class="section-icon"&gt;
     &lt;img src="images/icon-faq.svg" alt=""&gt;
   &lt;/div&gt;
@@ -276,118 +228,133 @@
   &lt;div class="faq-grid"&gt;
 
     &lt;div class="faq-item"&gt;
-      &lt;h4&gt;Wie lange läuft der Mietvertrag?&lt;/h4&gt;
-      &lt;p&gt;Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden
-      die Dachflächen zwischen 10 und 20 Jahre zur Verfügung gestellt.&lt;/p&gt;
+      &lt;h4&gt;Wie lange l&amp;auml;uft der Mietvertrag?&lt;/h4&gt;
+      &lt;p&gt;Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden die
+      Dachfl&amp;auml;chen zwischen 10 und 20 Jahre zur Verf&amp;uuml;gung gestellt.
+      W&amp;auml;hrend der gesamten Vertragslaufzeit k&amp;uuml;mmern wir uns um die
+      Funktionalit&amp;auml;t, die Versicherung und den Service der PV-Anlage
+      sowie um die Vermarktung des Sonnenstroms.&lt;/p&gt;
     &lt;/div&gt;
 
-    &lt;!-- Weitere .faq-item gleich aufgebaut --&gt;
+    &lt;div class="faq-item"&gt;
+      &lt;h4&gt;Werden die Photovoltaik-Anlagen auch mit Speicher kombiniert?&lt;/h4&gt;
+      &lt;p&gt;Je nach Standort, Kundenwunsch und Wirtschaftlichkeit werden die
+      Dachfl&amp;auml;chen zwischen 10 und 20 Jahre zur Verf&amp;uuml;gung gestellt.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="faq-item"&gt;
+      &lt;h4&gt;Was sind die Benefits der Vermietung?&lt;/h4&gt;
+      &lt;p&gt;Die Dacheigent&amp;uuml;mer*innen erhalten ein Nutzungsentgelt in Form
+      einer j&amp;auml;hrlichen Barleistung oder eines g&amp;uuml;nstigen Strombezugs.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="faq-item"&gt;
+      &lt;h4&gt;Wie wird die PV-Anlage finanziert?&lt;/h4&gt;
+      &lt;p&gt;Die PV-Anlagen von GERNE werden &amp;uuml;ber ein seit 10 Jahren bew&amp;auml;hrtes
+      B&amp;uuml;rgerbeteiligungsmodell finanziert. Ab Euro 500,- k&amp;ouml;nnen
+      Sonnenbausteine gekauft werden.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="faq-item"&gt;
+      &lt;h4&gt;Was passiert nach Ablauf der Vertragszeit?&lt;/h4&gt;
+      &lt;p&gt;Je nach Vereinbarung &amp;uuml;bertr&amp;auml;gt Helios die Photovoltaikanlage
+      in das Eigentum der Dacheigent&amp;uuml;mer*innen, oder die Anlage wird
+      auf Kosten von Helios abgebaut.&lt;/p&gt;
+    &lt;/div&gt;
 
   &lt;/div&gt;
 &lt;/div&gt;</pre>
-    </div>
+    <div class="copy-wrap"><button onclick="copy('c-faq',this)">Copy</button></div>
+  </div>
 
-    <!-- FOOTER -->
-    <div class="block" id="footer">
-      <div class="block-title">Footer <span class="tag">3-spaltig + Social Icons</span></div>
-      <p class="note">Dunkelgrauer Hintergrund (#616161). 3 Spalten: Kontakt, Datenschutz, Copyright. Social Icons unten zentriert.</p>
-      <div class="preview">
-        <div class="prev-footer">
-          <div class="prev-footer-grid">
-            <div><div class="prev-footer-title">Bad Gleichenberger Erneuerbare Energie</div><div class="prev-footer-text">Bairisch Kölldorf 12<br>A-8344 Bad Gleichenberg<br>03159 / 2244-30<br>office@bg-energie.at</div></div>
-            <div><div class="prev-footer-title">Datenschutz</div><div class="prev-footer-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</div></div>
-            <div><div class="prev-footer-title">Copyright</div><div class="prev-footer-text">© 2020 Alle Rechte vorbehalten. Bad Gleichenberger Energie GmbH.</div></div>
-          </div>
-          <div class="prev-footer-social">
-            <div class="prev-social-dot"></div>
-            <div class="prev-social-dot"></div>
-            <div class="prev-social-dot"></div>
-            <div class="prev-social-dot"></div>
-          </div>
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyBlock('code-footer', this)">Copy</button>
-      <pre id="code-footer">&lt;footer&gt;
+  <!-- FOOTER -->
+  <div class="block" id="footer">
+    <div class="block-head"><h3>Footer</h3><span class="tag">3-spaltig + Social Icons</span></div>
+    <div class="block-note">Grauer Hintergrund (#616161). 3 Spalten, Social Icons unten zentriert.</div>
+    <pre id="c-footer">&lt;footer&gt;
   &lt;div class="footer-inner"&gt;
+
     &lt;div&gt;
       &lt;h5&gt;Bad Gleichenberger&lt;br&gt;Erneuerbare Energie&lt;/h5&gt;
       &lt;address&gt;
-        Bairisch Kölldorf 12&lt;br&gt;
+        Bairisch K&amp;ouml;lldorf 12&lt;br&gt;
         A-8344 Bad Gleichenberg&lt;br&gt;
-        ☎&amp;nbsp;03159 / 2244-30 &amp;bull; 03159 / 3055&lt;br&gt;
-        ✉&amp;nbsp;&lt;a href="mailto:office@bg-energie.at"&gt;office@bg-energie.at&lt;/a&gt;&lt;br&gt;
-        🌐&amp;nbsp;&lt;a href="http://www.bg-energie.at"&gt;www.bg-energie.at&lt;/a&gt;
+        &amp;#9742;&amp;nbsp;03159 / 2244-30 &amp;bull; 03159 / 3055&lt;br&gt;
+        &amp;#9993;&amp;nbsp;&lt;a href="mailto:office@bg-energie.at"&gt;office@bg-energie.at&lt;/a&gt;&lt;br&gt;
+        &amp;#127760;&amp;nbsp;&lt;a href="http://www.bg-energie.at" target="_blank"&gt;www.bg-energie.at&lt;/a&gt;
       &lt;/address&gt;
     &lt;/div&gt;
+
     &lt;div&gt;
       &lt;h5&gt;Datenschutz&lt;/h5&gt;
-      &lt;p&gt;Lorem ipsum...&lt;/p&gt;
+      &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+      sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+      magna aliquam erat volutpat. Ut wisi&lt;/p&gt;
     &lt;/div&gt;
+
     &lt;div&gt;
       &lt;h5&gt;Copyright&lt;/h5&gt;
-      &lt;p&gt;&amp;copy; 2020 Alle Rechte vorbehalten...&lt;/p&gt;
+      &lt;p&gt;&amp;copy; 2020 Alle Rechte vorbehalten. F&amp;uuml;r den Inhalt
+      verantwortlich: Bad Gleichenberger Energie GmbH.&lt;br&gt;
+      Grafik &amp;amp; Design: ideenfabrik, grafik + design&lt;/p&gt;
     &lt;/div&gt;
+
   &lt;/div&gt;
   &lt;div class="footer-social"&gt;
-    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG Facebook --&gt;&lt;/a&gt;
-    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG YouTube --&gt;&lt;/a&gt;
-    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG Instagram --&gt;&lt;/a&gt;
-    &lt;a href="#" class="social-btn"&gt;&lt;!-- SVG LinkedIn --&gt;&lt;/a&gt;
+    &lt;a href="#" class="social-btn" title="Facebook"&gt;
+      &lt;svg viewBox="0 0 24 24"&gt;&lt;path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/&gt;&lt;/svg&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="social-btn" title="YouTube"&gt;
+      &lt;svg viewBox="0 0 24 24"&gt;&lt;path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/&gt;&lt;polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/&gt;&lt;/svg&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="social-btn" title="Instagram"&gt;
+      &lt;svg viewBox="0 0 24 24"&gt;&lt;rect x="2" y="2" width="20" height="20" rx="5" ry="5"/&gt;&lt;path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/&gt;&lt;circle cx="17.5" cy="6.5" r="1"/&gt;&lt;/svg&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="social-btn" title="LinkedIn"&gt;
+      &lt;svg viewBox="0 0 24 24"&gt;&lt;path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/&gt;&lt;rect x="2" y="9" width="4" height="12"/&gt;&lt;circle cx="4" cy="4" r="2"/&gt;&lt;/svg&gt;
+    &lt;/a&gt;
   &lt;/div&gt;
 &lt;/footer&gt;</pre>
-    </div>
-
-    <!-- BILDER EINBINDEN -->
-    <div class="block" id="bilder">
-      <div class="block-title">Bilder einbinden</div>
-      <p class="note">Alle Bildstellen sind mit leerem src="" vorbereitet. Einfach den Pfad eintragen:</p>
-      <pre>Bildstelle              HTML-Tag                     src eintragen
-─────────────────────────────────────────────────────────────────────
-Logo                    &lt;img class="logo"&gt;            src="images/logo.png"
-Hero-Banner             &lt;img&gt; in .banner.banner-1     src="images/hero.jpg"
-Icon Angebot            &lt;img&gt; in .section-icon        src="images/icon-angebot.svg"
-Foto Gewerbe            &lt;img class="card-img"&gt;        src="images/foto-gewerbe.jpg"
-Foto Landwirtschaft     &lt;img class="card-img"&gt;        src="images/foto-landwirtschaft.jpg"
-Foto Gemeinden          &lt;img class="card-img"&gt;        src="images/foto-gemeinden.jpg"
-Foto Privat             &lt;img class="card-img"&gt;        src="images/foto-privat.jpg"
-Icon Gewerbe            &lt;img&gt; in .card-icon           src="images/icon-gewerbe.svg"
-Icon Landwirtschaft     &lt;img&gt; in .card-icon           src="images/icon-landwirtschaft.svg"
-Icon Gemeinden          &lt;img&gt; in .card-icon           src="images/icon-gemeinden.svg"
-Icon Privat             &lt;img&gt; in .card-icon           src="images/icon-privat.svg"
-Solarpark-Banner        &lt;img&gt; in .banner.banner-1     src="images/solarpark.jpg"
-Icon Zusammenarbeit     &lt;img&gt; in .section-icon        src="images/icon-zusammenarbeit.svg"
-Icon Kontaktaufnahme    &lt;img&gt; in .p-icon              src="images/icon-kontakt.svg"
-Icon Planung            &lt;img&gt; in .p-icon              src="images/icon-planung.svg"
-Icon Installation       &lt;img&gt; in .p-icon              src="images/icon-installation.svg"
-Icon Service            &lt;img&gt; in .p-icon              src="images/icon-service.svg"
-Techniker-Banner        &lt;img&gt; in .banner.banner-2     src="images/techniker.jpg"
-Icon FAQ                &lt;img&gt; in .section-icon        src="images/icon-faq.svg"</pre>
-    </div>
-
+    <div class="copy-wrap"><button onclick="copy('c-footer',this)">Copy</button></div>
   </div>
-</div>
+
+  <!-- BILDÜBERSICHT -->
+  <div class="block" id="bilder">
+    <div class="block-head"><h3>Bildübersicht – alle src="" Stellen</h3></div>
+    <table>
+      <tr><th>Element</th><th>Klasse / Position</th><th>src eintragen</th></tr>
+      <tr><td>Logo</td><td><code>&lt;img class="logo"&gt;</code> in nav</td><td>images/logo.png</td></tr>
+      <tr><td>Hero-Banner</td><td><code>&lt;img&gt;</code> in <code>.banner.banner-1</code> (1. Banner)</td><td>images/hero.jpg</td></tr>
+      <tr><td>Icon Angebot</td><td><code>&lt;img&gt;</code> in <code>.section-icon</code> (Angebot)</td><td>images/icon-angebot.svg</td></tr>
+      <tr><td>Foto Gewerbe</td><td><code>&lt;img class="card-img"&gt;</code> (1. Karte)</td><td>images/foto-gewerbe.jpg</td></tr>
+      <tr><td>Icon Gewerbe</td><td><code>&lt;img&gt;</code> in <code>.card-icon</code> (1. Karte)</td><td>images/icon-gewerbe.svg</td></tr>
+      <tr><td>Foto Landwirtschaft</td><td><code>&lt;img class="card-img"&gt;</code> (2. Karte)</td><td>images/foto-landwirtschaft.jpg</td></tr>
+      <tr><td>Icon Landwirtschaft</td><td><code>&lt;img&gt;</code> in <code>.card-icon</code> (2. Karte)</td><td>images/icon-landwirtschaft.svg</td></tr>
+      <tr><td>Foto Gemeinden</td><td><code>&lt;img class="card-img"&gt;</code> (3. Karte)</td><td>images/foto-gemeinden.jpg</td></tr>
+      <tr><td>Icon Gemeinden</td><td><code>&lt;img&gt;</code> in <code>.card-icon</code> (3. Karte)</td><td>images/icon-gemeinden.svg</td></tr>
+      <tr><td>Foto Privat</td><td><code>&lt;img class="card-img"&gt;</code> (4. Karte)</td><td>images/foto-privat.jpg</td></tr>
+      <tr><td>Icon Privat</td><td><code>&lt;img&gt;</code> in <code>.card-icon</code> (4. Karte)</td><td>images/icon-privat.svg</td></tr>
+      <tr><td>Solarpark-Banner</td><td><code>&lt;img&gt;</code> in <code>.banner.banner-1</code> (2. Banner)</td><td>images/solarpark.jpg</td></tr>
+      <tr><td>Icon Zusammenarbeit</td><td><code>&lt;img&gt;</code> in <code>.section-icon</code> (Zusammenarbeit)</td><td>images/icon-zusammenarbeit.svg</td></tr>
+      <tr><td>Icon Kontaktaufnahme</td><td><code>&lt;img&gt;</code> in <code>.p-icon</code> (1. Prozesskarte)</td><td>images/icon-kontakt.svg</td></tr>
+      <tr><td>Icon Planung</td><td><code>&lt;img&gt;</code> in <code>.p-icon</code> (2. Prozesskarte)</td><td>images/icon-planung.svg</td></tr>
+      <tr><td>Icon Installation</td><td><code>&lt;img&gt;</code> in <code>.p-icon</code> (3. Prozesskarte)</td><td>images/icon-installation.svg</td></tr>
+      <tr><td>Icon Service</td><td><code>&lt;img&gt;</code> in <code>.p-icon</code> (4. Prozesskarte)</td><td>images/icon-service.svg</td></tr>
+      <tr><td>Techniker-Banner</td><td><code>&lt;img&gt;</code> in <code>.banner.banner-2</code></td><td>images/techniker.jpg</td></tr>
+      <tr><td>Icon FAQ</td><td><code>&lt;img&gt;</code> in <code>.section-icon</code> (FAQ)</td><td>images/icon-faq.svg</td></tr>
+    </table>
+  </div>
+
+</main>
 
 <script>
-function copyBlock(id, btn) {
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(() => {
+function copy(id, btn) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
     btn.textContent = 'Kopiert ✓';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1800);
   });
 }
-
-const links = document.querySelectorAll('.toc a');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      links.forEach(l => l.classList.remove('active'));
-      const active = document.querySelector(`.toc a[href="#${e.target.id}"]`);
-      if (active) active.classList.add('active');
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('.block').forEach(b => observer.observe(b));
 </script>
 </body>
 </html>
